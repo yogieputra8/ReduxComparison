@@ -1,0 +1,3 @@
+rootProject.name = 'ReduxComparison'
+
+include ':app'
