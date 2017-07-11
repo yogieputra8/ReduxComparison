@@ -7,19 +7,29 @@ import { fetchData } from './actions'
 let styles
 
 const App = (props) => {
-  const {
-    container,
-    text,
-    button,
-    buttonText
-  } = styles
+  const { container, text, button, buttonText, mainContent } = styles
 
   return (
     <View style={container}>
       <Text style={text}>Redux Examples</Text>
-      <TouchableHighlight style={button}>
-        <Text style={buttonText}>Load Data</Text>
+      <TouchableHighlight style={button} onPress={() => props.fetchData()}>
+        <Text style={buttonText}>Load Data..</Text>
       </TouchableHighlight>
+      <View style={mainContent}>
+      	{
+      		props.appData.isFetching && <Text>Loading..</Text>
+      	}
+      	{
+      		props.appData.data.length ? (
+      			props.appData.data.map((person, i) => {
+      				return <View key={person, i} >
+      					<Text>Name: {person.name}</Text>
+      					<Text>Age: {person.age}</Text>
+      				</View>
+      			})
+      		) : null
+      	}
+      </View>
     </View>
   )
 }
@@ -40,6 +50,9 @@ styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white'
+  },
+  mainContent: {
+  	margin: 10
   }
 })
 
